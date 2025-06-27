@@ -83,7 +83,7 @@ class InputGuardrail(Generic[TContext]):
     """
 
     guardrail_function: Callable[
-        [RunContextWrapper[TContext], Agent[Any], str | list[TResponseInputItem]],
+        [RunContextWrapper[TContext], Agent[Any], Union[str, list[TResponseInputItem]]],
         MaybeAwaitable[GuardrailFunctionOutput],
     ]
     """A function that receives the agent input and the context, and returns a
@@ -105,7 +105,7 @@ class InputGuardrail(Generic[TContext]):
     async def run(
         self,
         agent: Agent[Any],
-        input: str | list[TResponseInputItem],
+        input: Union[str, list[TResponseInputItem]],
         context: RunContextWrapper[TContext],
     ) -> InputGuardrailResult:
         if not callable(self.guardrail_function):
